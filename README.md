@@ -1167,6 +1167,12 @@ body {
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=slice&color=0:06b6d4,40:7c3aed,70:db2777,100:f97316&height=120&section=footer&reversal=true&fontAlign=50" width="100%"/>
+---
+
+---
+
+<div align="center">
+<img src="./footer.svg" width="100%" alt="Footer"/>
+</div>
 
 </div>
