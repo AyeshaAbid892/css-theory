@@ -218,7 +218,7 @@
     stroke="#34d399" stroke-opacity="0.8" stroke-width="1"/>
   <text x="707" y="250" text-anchor="middle"
     font-family="Georgia,serif" font-size="10.5" font-weight="bold"
-    fill="#a7f3d0" letter-spacing="0.5">AI BOOTCAMP 2025</text>
+    fill="#a7f3d0" letter-spacing="0.5">AI BOOTCAMP 2026</text>
 
   <!-- Bottom strip -->
   <rect x="0" y="268" width="900" height="12" fill="url(#divg)" opacity="0.5" rx="0"/>
