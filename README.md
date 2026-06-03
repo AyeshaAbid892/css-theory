@@ -1600,9 +1600,55 @@ input[type="email"]::placeholder {
 
 ---
 
-## 🎯 Q9 · Transitions & Animations
+## `🎯 Question 9  `
 
-> CSS motion is the difference between an interface that feels **alive** and one that feels static. Transitions handle state changes. Animations handle sequences. Both should always prefer `transform` and `opacity` for GPU-accelerated, jank-free motion.
+ ## **Explain CSS Transitions and Animations.**
+
+> **Engineering Specification Overview:** CSS motion systems transform static DOM tree configurations into fluid, interactive interfaces. By native execution of state interpolations and multi-stage keyframe timelines, developers program performant UI components. When engineered using compositor-isolated vector properties, these animations run via hardware-accelerated pathways, preventing main-thread pipeline blockages.
+
+---
+
+## 🧩 Enterprise Architecture Keywords
+
+>* **`State Interpolation:`** The automated mathematical calculation of intermediate visual property states executed by the browser between an explicit structural Start (A) and End (B) boundary point.
+>* **`Compositor Layer Allocation:`** The architectural pipeline where specific element nodes are promoted to isolated layers processed directly by the device graphics processor (GPU), completely bypassing main-thread UI operations.
+>* **`Critical Rendering Path (CRP):`** The sequential timeline of steps (DOM → CSSOM → Layout → Paint → Composite) executed by the client engine to render pixel data onto viewports.
+>* **`Reflow (Layout Invalidation):`** The heavy process where the engine recalculates geometric positions and dimensions of elements, forcing full document recalculation loops.
+
+---
+
+## 🏛️ Structural Paradigm Evaluation: Transitions vs. Animations
+
+| Architectural Parameter | Transitions (State-Based) | Animations (Timeline-Driven) |
+| :--- | :--- | :--- |
+| **Execution Trigger** | ⚠️ Absolute Dependency Required (e.g., `:hover`, `:focus`, JS event state hooks). | ✅ Zero Trigger Dependency. Initiates autonomously upon DOM node mount operations. |
+| **Operational Sequence** | Linear progression from baseline configuration straight to target value (Strictly State A → State B). | Complex, multi-stage trajectory paths controlled explicitly via internal fractional percentage markers (`@keyframes`). |
+| **Iteration Capabilities** | Unidirectional execution block. Runs once per state validation toggle. | Cyclic capabilities via `animation-iteration-count` settings (supports infinite looping arrays). |
+| **State Persistence Control** | Automatically rolls back properties instantly to baseline styling state when the trigger environment clears out. | Highly configurable baseline retention structures via explicit `animation-fill-mode` adjustments. |
+| **Optimal Production Targets** | Element micro-interactions, buttons, anchor line shifts, focus rings, and input field glow configurations. | Indefinite asynchronous status displays, layout bone wrappers, application view changes, and loader tracking icons. |
+
+---
+
+## ⚙️ Micro-Shorthand Syntax Breakdown
+
+```css
+/* ──────────────────────────────────────────────────────────────────────────
+   TRANSITION SYNTAX SPECIFICATION
+   shorthand: [property] [duration] [timing-function] [delay]
+   ────────────────────────────────────────────────────────────────────────── */
+.interactive-card {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) 0s,
+              box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1) 0s;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ANIMATION SYNTAX SPECIFICATION
+   shorthand: [name] [duration] [timing-function] [delay] [iteration-count] [fill-mode]
+   ────────────────────────────────────────────────────────────────────────── */
+.animated-modal {
+  animation: structuralFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s 1 forwards;
+}
+```
 
 ### 🧩 Key Answers
 
@@ -1627,77 +1673,111 @@ input[type="email"]::placeholder {
 
 ---
 
-### 📐 Transition Syntax & Timing Functions
+## 🔬 Comprehensive Feature Specifications (Detailed Theoretical Assessment)
+#### 1. A transition needs a trigger — what are common triggers in real-world production?
+
+>Transitions cannot fire automatically because they lack an internal layout scheduling mechanism. They mandate an environmental change flag that modifies a CSS property value on an active element. Production web architectures look for specific event states:<br>
+`User-Driven Pseudo-Classes:` `* :hover -> `Activated when client pointer tracking devices overlap container bounds.
+`:focus -> `Triggered when keyboard tab selection arrays or input actions establish element targeting.
+`:active ->` Intercepted during the exact execution duration of physical mouse clicks or touch point compressions.
+`Programmatic JavaScript Class Hooks:` Injecting or removing operational state variables within element node records via scripts (e.g., element.classList.add('is-active')).<br> This instantly targets property deviations and prompts state rendering calculations.
+
+#### 2. Can you have multiple transitions declared on a single element container?
+>The Engineering Reality: Yes. The rendering engine natively compiles multiple concurrent state modifications seamlessly.
+
+>Execution Constraint: Multiple transitions must be declared inside a single structural property line separated by explicit commas. Spawning separate standalone lines will overwrite previous properties due to native style cascade layers. Grouped adjustments process simultaneously across independent operational timelines:
+
+```css 
+.button-node {
+  transition: background-color 0.2s linear, transform 0.3s ease-out, opacity 0.15s ease-in;
+}
+```
+
+#### 3. What does animation-iteration-count: infinite do to an element?
+
+>`The Compilation Impact:` This instruction sets the structural timeline iteration register to an absolute execution cycle, disabling the default value tracking constraint (1).
+>`Production Mechanics:` The browser layout engine is commanded to cycle the targeted @keyframes array continuously without ever prompting termination routines. It forces the loop to restart immediately upon reaching the 100% animation frame flag. This setting is required for components that maintain indefinite background statuses, such as skeleton screen placeholder rows, network asset loaders, or pulsing radar alert flags.
+
+#### 4. Why is animating transform drastically faster than animating physical dimensions like width?
+
+>This is a critical performance question centered on browser layout mechanics. Animating width forces a catastrophic Layout Reflow Loop, while animating transform uses isolated GPU Compositing Layers.
+```
+[ ANIMATING WIDTH = SLOW MAIN-THREAD PIPELINE ]
+⚙️ Width Shift ──► 💥 Reflow (Recalculate Grid) ──► 🎨 Repaint Pixels ──► 🚚 Composite Layers
+(Forces browser to re-compute geometric arrays for full page content tree every 16ms)
+
+[ ANIMATING TRANSFORM = FAST HARDWARE BALANCED PIPELINE ]
+🚀 Transform Shift ──► 🎛️ GPU Compositor Layer Thread Allocation ──► 🎨 Direct Matrix Paint Update
+(Bypasses Reflow and Repaint loops entirely; scales layer textures natively via GPU cores)
+```
+### The Width Invalidation Flaw:
+>Modifying a structural dimension like width alters geometric space configuration. The browser must halt execution pipelines, recalculate box mapping models for the target node and surrounding page coordinates, repaint those modified paths, and send down final files. This consumes main thread budget, causing frame drops.
+
+### The Transform Optimization Strategy: 
+>Modifying transform: translateY() or scale() alters properties on layer elements after layout maps are established. The browser hoists the node onto its own independent GPU Layer. The GPU handles transformations natively via vector calculations without triggering reflows, ensuring buttery-smooth 60fps or 120fps refresh rates.
+
+
+## 🎨 Deep-Dive Matrix: Parsing Browser Timing Functions
+
+```
+[ EASE ]        📈 Speed starts slow ───► Spikes high mid-timeline ───► Decelerates slow
+[ EASE-IN ]     📉 Starts slow ───────────────────────────────────────► Abrupt sharp velocity finish
+[ EASE-OUT ]    📈 High initial speed launch ─────────────────────────► Long, smooth braking deceleration
+[ LINEAR ]      📊 Fixed flat velocity vector from start milestone directly to termination frame
+```
+
+---
+#### `ease (The Default Setting):`
+>Features a gradual start phase, rapidly accelerating through midpoints before breaking gently into completion targets. Matches natural, weighted motion paths.
+#### `ease-in (Acceleration Profile):`
+> Starts with minimal movement speed and steadily gains mechanical momentum until snapping into final value states. Ideal for elements exiting the viewport boundary layers.
+#### `ease-out (Deceleration Profile):`
+> Launches instantly with top velocity speed metrics and gradually applies smooth decelerating forces over the remaining timeline duration. This is the production choice for hover states, as user interactions require immediate, snappy feedback.
+#### `linear (Constant Velocity):`
+>Processes updates at an unchanged step index throughout the animation sequence. Used exclusively for infinite rotational loaders, timers, and progress bar elements.
+
+## 💻 Code Task Verification: GPU-Accelerated Dynamic Card
+
+>This complete modular solution meets the assignment's technical criteria: firing a clean, non-blocking fade-in transformation upon DOM compilation, and handling active elevation hover transitions completely isolated on the GPU compositor tier.
+
+### 📄 Structural HTML Architecture 
 
 ```css
-/* shorthand: property   duration   timing-function   delay */
-.card {
-  transition: transform 0.3s ease-out 0s,
-              box-shadow 0.3s ease-out 0s;
-}
-
-/*
-  TIMING FUNCTIONS — how speed changes over time:
-  ─────────────────────────────────────────────────
-  ease        → slow start, fast middle, slow end  (natural, default)
-  ease-in     → slow start, accelerates            (element entering)
-  ease-out    → fast start, decelerates            ✅ most natural for hovers
-  linear      → constant speed                     (spinners, progress bars)
-  cubic-bezier(x1,y1,x2,y2) → fully custom curve  (spring, bounce, elastic)
-*/
+<article class="telemetry-card">
+  <header class="card-header">
+    <h3>Project Alpha</h3>
+    <span class="status-badge">Active</span>
+  </header>
+  <p>Advanced high-fidelity card interface rendering hardware-accelerated motion components fluidly.</p>
+</article>
 ```
 
 ---
 
-### 📐 `@keyframes` & Animation Properties
+## 🎨 Presentation Layer Stylesheet
+
+
 
 ```css
-/* Define animation sequence with @keyframes */
-@keyframes fadeInUp {
-  from {
+/* ==========================================================================
+   1. KEYFRAME SEQUENCE GENERATION (Timeline Engine)
+   ========================================================================== */
+@keyframes fadeInUpward {
+  0% {
     opacity: 0;
-    transform: translateY(28px);
+    /* Spawns elements 30px down the canvas plane to provide spatial scale context */
+    transform: translateY(30px); 
   }
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0);    /* Snaps directly back into normal document flow layout */
   }
 }
 
-/*
-  animation shorthand:
-  name  duration  timing  delay  iteration  fill-mode
-*/
-.element {
-  animation: fadeInUp 0.55s ease-out 0.1s 1 forwards;
-}
-
-/*
-  animation-fill-mode: forwards
-  → element HOLDS the final keyframe state after animation ends
-  → without it: element snaps back to original (opacity:0) — visually jarring
-*/
-```
-
----
-
-### 📐 Code Task — Card with Lift + Fade-In
-
-```html
-<div class="card">
-  <h3>Project Alpha</h3>
-  <p>A beautifully animated card component.</p>
-</div>
-```
-
-```css
-/* Page load fade-in sequence */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.card {
+/* ==========================================================================
+   2. TARGET COMPONENT STYLING (Layout Base)
+   ========================================================================== */
+.telemetry-card {
   background: #1e293b;
   border-radius: 16px;
   padding: 2rem;
@@ -1706,33 +1786,129 @@ input[type="email"]::placeholder {
   border: 1px solid #334155;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 
-  /* Runs on page load — no trigger needed */
-  animation: fadeInUp 0.6s ease-out forwards;
+  /* --------------------------------────────────────────────────────────────
+     Animation Implementation (Runs Automatically on Page Load)
+     --------------------------------──────────────────────────────────────── */
+  animation: fadeInUpward 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s 1 forwards;
+  /* Note: 'forwards' forces the node to preserve the 100% keyframe state,
+     preventing visual snaps back to full opacity zero targets */
 
-  /* Responds to hover — trigger required */
-  transition: transform 0.3s ease-out,
-              box-shadow 0.3s ease-out;
+  /* --------------------------------────────────────────────────────────────
+     Transition Implementation (Prepares Layer for Hover Interaction)
+     --------------------------------──────────────────────────────────────── */
+  will-change: transform, box-shadow; /* Optimizes browser layer layout processing */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.card:hover {
-  transform: translateY(-8px);                          /* GPU compositor */
-  box-shadow: 0 24px 50px rgba(124, 58, 237, 0.3);    /* colour shadow */
+/* ==========================================================================
+   3. INTERACTION TARGET MATRIX (State Changes)
+   ========================================================================== */
+.telemetry-card:hover {
+  /* Processed on the GPU compositor thread — zero reflow footprint */
+  transform: translateY(-8px); 
+  
+  /* Deep vibrant purple shadow layer elevation glow effect */
+  box-shadow: 0 24px 50px rgba(124, 58, 237, 0.3); 
 }
+
+/* Supplemental Presentation Layouts */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #a78bfa;
+}
+
+.status-badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 ```
 
-> ⚡ **GPU Rule:** `transform` and `opacity` are the only two CSS properties that can be animated entirely on the compositor thread — bypassing layout and paint. Animating `width`, `height`, `top`, `left`, or `margin` forces the browser to recalculate the entire layout every frame (16ms budget), causing dropped frames and janky motion.
+⚡ **GPU Rule:** 
+>`transform` and `opacity` are the only two CSS properties that can be animated entirely on the compositor thread — bypassing layout and paint.
+> Animating `width`, `height`, `top`, `left`, or `margin` forces the browser to recalculate the entire layout every frame (16ms budget), causing dropped frames and janky motion.
 
-### 🖼️ Visual Reference
-> ![CSS Animations](https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80)
-> *Unsplash — Smooth UI motion and CSS transition effects in production apps*
+## `🖼️ Visual Reference`
+
+<img width="650" height="400" alt="image" src="https://github.com/user-attachments/assets/23757617-5f53-4f06-9a7d-b4de8e04ed42" />
+
 
 ---
 
-## 🎯 Q10 · Responsive Web Design
+## `🎯 Question 10`
 
-> Responsive design is not optional — it is the baseline. With 60%+ of global web traffic on mobile, a non-responsive site is functionally broken for the majority of real users. This question covers the three pillars of modern responsive CSS.
+ ## 📱 What is Responsive Web Design? Explain Media Queries, CSS Variables, and Mobile-First approach.
 
-### 🧩 Key Answers
+> **Engineering Specification Overview:** Modern responsive web architecture treats viewports as fluid media canvas streams rather than fixed pixel dimensions. By leveraging declarative media queries, architectural custom property systems `(CSS Variables)`, and progressive mobile-first optimization pipelines, applications scale cleanly across varying screen sizes while minimizing layout recalculation overhead.
+
+---
+
+## 🧩 Enterprise Architecture Keywords
+
+>* **Progressive Enhancement:** The core engineering strategy of developing the leanest core layout layer for baseline constraints first, then adding advanced visual enhancements step-by-step as horizontal viewport bounds expand.
+>* **Design Token Engine:** A modular architecture pattern where global design variables (colors, spacing vectors, typography metrics) are declared centrally on the runtime scope to enable dynamic system changes.
+>* **Dynamic Theme Inversion:** Injecting attribute mutations onto the document tree root node to overwrite current variable parameters instantaneously at runtime without forcing stylesheet swaps.
+>* **Media-Query Invalidation:** The browser runtime operation where the compilation engine tests viewport width vectors against defined breakpoint bounds to apply or drop whole conditional style trees dynamically.
+
+---
+
+## 🔬 Comprehensive Feature Specifications (Detailed Theoretical Assessment)
+
+#### 1. In a Mobile-First design system, do you implement `min-width` or `max-width` inside conditional media queries?
+
+>* **The Engineering Standard:** A strict mobile-first engineering approach uses **`min-width`** media query expressions exclusively.
+
+>* **Architectural Mechanics:** The base CSS scope operates without conditional overrides, serving layout rules built for narrow mobile device boundaries. As viewports grow wide, media query boundaries validate sequentially (`@media (min-width: 768px)`), layering incremental structural modifications onto the baseline layout.
+
+>* **Why it beats legacy `max-width`:** Utilizing `max-width` means building desktop-first. This forces mobile clients—which are often hardware and network constrained—to first process complex desktop style sheets and then unpick, override, and strip out properties within endless desktop media cascades. `min-width` optimizes data payloads, resulting in lightweight rendering setups on mobile browsers.
+
+---
+
+#### 2. What exactly does the conditional declaration `@media (prefers-color-scheme: dark)` accomplish inside the client runtime engine?
+
+>* **The System Intercept:** This special media query acts as a direct hardware-level interface hook between the client application and the user's host operating system settings.
+
+>* **Runtime Behavior:** The browser reads the OS preference flag. If the user has active dark mode enabled, the rendering engine triggers this conditional block. It injects dark theme custom property tokens directly into the engine, modifying colors globally without relying on heavy JavaScript execution or style recalculation delays.
+
+---
+
+#### 3. Can client-side JavaScript actively read and dynamically modify CSS variables at runtime?
+
+>* **The Engineering Reality:** **Yes.** Unlike old preprocessing tools `(like Sass or Less)` whose variable systems melt away into raw CSS during static build steps, CSS Custom Properties exist natively inside the live DOM tree as interactive properties.
+
+>* **The API Mechanism:** JavaScript accesses and alters variable tokens on active layout structures via standard DOM interfaces:
+
+```javascript
+// READ: Accessing a live token value directly from the compiled style tree
+const activeSurfaceColor = getComputedStyle(document.documentElement)
+                             .getPropertyValue('--color-surface');
+
+// WRITE: Dynamically re-assigning a global theme variable token via scripts
+document.documentElement.style.setProperty('--color-surface', '#0f172a');
+```
+
+### ⚡ Production Impact
+> This script-to-style binding allows for rich UI controls, such as live color palette wheels, drag-and-drop user configuration spaces, or immediate coordinate adjustments driven by mouse move events.
+
+#### 4.What is the functional operational difference between declaring var(--color) versus var(--color, #fff)?
+
+>The presence of the secondary parameter represents a critical fallback mechanism designed to prevent rendering tree breakdowns:
+>`var(--color) (Unprotected Query):` Instructs the engine to fetch the specified property token value. If that token variable is missing, misspelled, or undefined, the style falls back to a transparent or inherited state. This often causes text layers to blend invisibly into backgrounds, breaking UI accessibility.
+>`var(--color, #fff) (Safe Protected Query):` Establishes an explicit Styling Fallback Strategy. If the primary variable token is missing from the compiled scope, the layout engine catches the exception and renders the backup option (#fff) instead. This keeps core elements visible even during network asset failures or code distribution glitches.
+
+## 🧩 Key Answers
 
 | Question | Answer |
 |----------|--------|
@@ -1743,56 +1919,37 @@ input[type="email"]::placeholder {
 
 ---
 
-### 📐 Part A — Media Queries
+### 🎨 Deep-Dive Specification Matrix: Breakpoint Architecture
 
-```css
-/* Syntax */
-@media (condition) { /* CSS rules applied when condition is true */ }
+>A standard responsive layout relies on a clear, stepping breakpoint tier that matches user display distributions across devices:
 
-/* ─── STANDARD INDUSTRY BREAKPOINTS ─── */
-
-/* Mobile base — no query needed (mobile-first default) */
-
-@media (min-width: 480px)  { /* Large phones  — compact adjustments  */ }
-@media (min-width: 768px)  { /* Tablets       — 2-column layouts      */ }
-@media (min-width: 1024px) { /* Laptops       — full navigation, sidebar */ }
-@media (min-width: 1280px) { /* Desktops      — max-width containers  */ }
-@media (min-width: 1536px) { /* Large screens — extended whitespace   */ }
+```
+📱 MOBILE BASE   ──► 📱 LARGE PHONES ──► 📑 TABLETS      ──► 💻 LAPTOPS     ──► 🖥️ DESKTOPS
+(Default Base)       (min-width: 480px)  (min-width: 768px)  (min-width: 1024px) (min-width: 1280px)
+Lean layout flow     Fluid grid shifts   Multi-column paths  Sidebar reveals     Max-width caps
 ```
 
 ---
+#### Mobile Default Scope:
+>Single-column layout flows, fluid text weights, and absolute layout stacking to fit narrow viewports.
+#### min-width: 768px (Tablet Tier):
+>Introduces multi-column layout splits (like a 2-column card layout), transforming basic mobile stacks into multi-axis cards.
+#### min-width: 1024px (Laptop/Desktop Tier):
+>Displays full navigation header setups, horizontal content rows, and locks main layout wrapper tracks to maximum width caps to prevent content from stretching awkwardly on ultra-wide screens.
 
-### 📐 Part B — Mobile-First vs Desktop-First
 
-```
-MOBILE-FIRST (✅ Industry Standard)      DESKTOP-FIRST (⚠️ Legacy approach)
-────────────────────────────────         ─────────────────────────────────
-Base CSS = lean mobile styles            Base CSS = heavy desktop styles
-↓                                        ↓
-@media (min-width: 768px) {              @media (max-width: 768px) {
-  /* ADD tablet features */                /* REMOVE/override for mobile */
-}                                        }
-↓
-@media (min-width: 1024px) {
-  /* ADD desktop features */
-}
+## 💻 Code Task Implementation: Fluid Responsive Token System
 
-Why mobile-first wins:
-✅ 60%+ of traffic is mobile
-✅ Forces performance discipline (small CSS first)
-✅ Progressive enhancement — add complexity, don't strip it
-✅ Google's mobile-first indexing rewards it in search rankings
-✅ Smaller CSS payload for the majority of users
-```
+>This codebase satisfies the assignment guidelines: initializing a complete design token variable engine, setting up dark theme variations, and building a mobile-first responsive layout that handles fluid grid scaling without hard-coded layout blocks.
 
----
-
-### 📐 Part C — CSS Variables (Custom Properties)
+### 🎨 1. Global Token Initialization (design-system.css)
 
 ```css
-/* ─── DESIGN SYSTEM — defined at :root, available everywhere ─── */
+/* ==========================================================================
+   GLOBAL DESIGN TOKENS (Base Light Mode Setup)
+   ========================================================================== */
 :root {
-  /* Color palette */
+  /* Color Palette System */
   --color-bg:        #ffffff;
   --color-surface:   #f8fafc;
   --color-primary:   #7c3aed;
@@ -1802,37 +1959,32 @@ Why mobile-first wins:
   --color-muted:     #64748b;
   --color-border:    #e2e8f0;
 
-  /* Typography scale */
+  /* Typography Scale Constants */
   --font-size-sm:   0.875rem;
   --font-size-base: 1rem;
   --font-size-lg:   1.25rem;
-  --font-size-xl:   clamp(2rem, 4vw, 3.5rem);
+  --font-size-xl:   clamp(2rem, 4vw, 3.5rem); /* Clamp handles fluid text scaling */
 
-  /* Spacing scale */
+  /* Spacing Scale Constants */
   --space-xs:  0.5rem;
   --space-sm:  1rem;
   --space-md:  1.5rem;
   --space-lg:  2.5rem;
   --space-xl:  4rem;
 
-  /* Shape & shadow */
-  --radius-sm:   6px;
-  --radius-md:   12px;
-  --radius-lg:   20px;
-  --shadow-sm:   0 1px 4px rgba(0,0,0,0.06);
-  --shadow-md:   0 4px 24px rgba(0,0,0,0.10);
-  --shadow-lg:   0 16px 48px rgba(0,0,0,0.16);
+  /* Layout Parameters */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --shadow-sm:  0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md:  0 4px 24px rgba(0, 0, 0, 0.10);
 }
-```
 
----
+/* ==========================================================================
+   DYNAMIC THEME OVERWRITE SYSTEMS (Dynamic Theme Inversion)
+   ========================================================================== */
 
-### 📐 Dark Mode — One Block, Zero Extra Code
-
-```css
-/* Light = default (:root above) */
-
-/* Dark mode — manual toggle via JS (data-theme="dark") */
+/* Strategy A: Script-Driven Theme Toggle Token Overwrites */
 [data-theme="dark"] {
   --color-bg:      #0f172a;
   --color-surface: #1e293b;
@@ -1841,7 +1993,7 @@ Why mobile-first wins:
   --color-border:  #334155;
 }
 
-/* Dark mode — OS preference (prefers-color-scheme) */
+/* Strategy B: OS Native Preference Context Overwrites */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:      #0f172a;
@@ -1852,74 +2004,93 @@ Why mobile-first wins:
   }
 }
 
-/* Components use variables — auto-update in both modes */
+/* Base Variable Application Layer */
 body {
-  background: var(--color-bg);
+  background-color: var(--color-bg);
   color: var(--color-text);
-  transition: background 0.3s ease, color 0.3s ease;
+  font-family: system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
 }
 ```
 
 ---
 
-### 📐 Code Task — Full Responsive Design System
+### 📐 2. Mobile-First Responsive Grid Framework (layout.css)
 
 ```css
-/* Mobile-First Responsive Layout */
 
-/* Base — Mobile */
+/* ==========================================================================
+   MOBILE BASE VIEWPORT LAYOUT RULES (Default Configuration Flow)
+   ========================================================================== */
 .container {
   width: 100%;
   padding: 0 var(--space-md);
+  box-sizing: border-box;
 }
 
 .card-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;           /* Forces simple vertical element stacking on narrow screens */
   gap: var(--space-md);
 }
 
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border, #e2e8f0); /* Uses fallbacks for design safety */
   border-radius: var(--radius-md);
   padding: var(--space-md);
   color: var(--color-text);
   box-shadow: var(--shadow-sm);
 }
 
-/* Tablet — 768px+ */
+/* ==========================================================================
+   INCREMENTAL TABLET BREAKPOINT UPGRADES (Progressive Layout Enhancement)
+   ========================================================================== */
 @media (min-width: 768px) {
-  .container { padding: 0 var(--space-lg); }
+  .container {
+    padding: 0 var(--space-lg);
+  }
 
   .card-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: row;            /* Shifts mobile vertical stack into horizontal layout paths */
+    flex-wrap: wrap;                /* Enables smooth item wrapping on screen compression */
   }
 
   .card-grid .card {
-    flex: 1 1 calc(50% - var(--space-md));
+    /* Computes clean 2-column distribution math while factoring in spatial gutter tracks */
+    flex: 1 1 calc(50% - (var(--space-md) / 2));
   }
 }
 
-/* Desktop — 1024px+ */
+/* ==========================================================================
+   INCREMENTAL LAPTOP/DESKTOP BREAKPOINT UPGRADES
+   ========================================================================== */
 @media (min-width: 1024px) {
   .container {
-    max-width: 75rem;
-    margin: 0 auto;
+    max-width: 75rem;               /* Caps row growth to preserve visual scale balance */
+    margin: 0 auto;                 /* Centers content block cleanly within high-res displays */
   }
 
   .card-grid .card {
-    flex: 1 1 calc(33.333% - var(--space-md));
+    /* Computes clean 3-column grid mapping math while factoring in spatial layout gaps */
+    flex: 1 1 calc(33.333% - (var(--space-md) * 2 / 3));
   }
 }
 ```
 
-> 💡 **Fallback values:** `var(--color-primary, #7c3aed)` — if the variable is undefined or misspelled, the fallback `#7c3aed` is used instead of invisible/broken styling. Always add fallbacks for critical design tokens used in visible properties.
+---
+
+
+
+ 💡 **Architectural Best Practice (Fallback Mechanics):** 
+ >Utilizing the pattern `var(--color-primary, #7c3aed)` serves as a critical layout safety net. If a design token variable happens to be undefined, misspelled, or drops during compilation pipelines, the layout engine catches the error and instantly renders the backup parameter value (`#7c3aed`). This prevents breaking element states or rendering invisible white text layers on white background structures. Always prioritize fallback parameters for critical design tokens applied directly to functional visibility interfaces.
 
 ### 🖼️ Visual Reference
-> ![Responsive Design](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80)
-> *Unsplash — Responsive layout rendering correctly across mobile, tablet, and desktop*
+
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/566a721a-fc69-4e51-94f7-ad24588b99e7" />
+
 
 ---
 
@@ -1943,9 +2114,9 @@ body {
 
 <br/>
 
-![CSS3](https://img.shields.io/badge/CSS3-%237c3aed?style=for-the-badge&logo=css3&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-%237c3aed?style=for-the-badge&logo=css3&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-%23db2777?style=for-the-badge&logo=html5&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-%23f97316?style=for-the-badge&logo=javascript&logoColor=white)
+![core level](https://img.shields.io/badge/JavaScript-%23f97316?style=for-the-badge&logo=javascript&logoColor=white)
 ![Responsive](https://img.shields.io/badge/Responsive_Design-%2306b6d4?style=for-the-badge)
 ![Dark Mode](https://img.shields.io/badge/Dark_Mode_Ready-%237c3aed?style=for-the-badge)
 
