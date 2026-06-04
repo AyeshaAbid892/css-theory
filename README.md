@@ -1604,7 +1604,8 @@ input[type="email"]::placeholder {
 
  ## **Explain CSS Transitions and Animations.**
 
-> **Engineering Specification Overview:** CSS motion systems transform static DOM tree configurations into fluid, interactive interfaces. By native execution of state interpolations and multi-stage keyframe timelines, developers program performant UI components. When engineered using compositor-isolated vector properties, these animations run via hardware-accelerated pathways, preventing main-thread pipeline blockages.
+ **Engineering Specification Overview:**
+> CSS motion systems transform static DOM tree configurations into fluid, interactive interfaces. By native execution of state interpolations and multi-stage keyframe timelines, developers program performant UI components. When engineered using compositor-isolated vector properties, these animations run via hardware-accelerated pathways, preventing main-thread pipeline blockages.
 
 ---
 
@@ -1650,7 +1651,7 @@ input[type="email"]::placeholder {
 }
 ```
 
-### 🧩 Key Answers
+## 🧩 Key Answers
 
 | Question | Answer |
 |----------|--------|
@@ -1661,7 +1662,7 @@ input[type="email"]::placeholder {
 
 ---
 
-### 📐 Transitions vs Animations
+## 📐 Transitions vs Animations
 
 | Feature | Transition | Animation |
 |---------|:----------:|:---------:|
@@ -1674,18 +1675,22 @@ input[type="email"]::placeholder {
 ---
 
 ## 🔬 Comprehensive Feature Specifications (Detailed Theoretical Assessment)
-#### 1. A transition needs a trigger — what are common triggers in real-world production?
+
+### 1. A transition needs a trigger — what are common triggers in real-world production?
 
 >Transitions cannot fire automatically because they lack an internal layout scheduling mechanism. They mandate an environmental change flag that modifies a CSS property value on an active element. Production web architectures look for specific event states:<br>
-`User-Driven Pseudo-Classes:` `* :hover -> `Activated when client pointer tracking devices overlap container bounds.
-`:focus -> `Triggered when keyboard tab selection arrays or input actions establish element targeting.
-`:active ->` Intercepted during the exact execution duration of physical mouse clicks or touch point compressions.
-`Programmatic JavaScript Class Hooks:` Injecting or removing operational state variables within element node records via scripts (e.g., element.classList.add('is-active')).<br> This instantly targets property deviations and prompts state rendering calculations.
 
-#### 2. Can you have multiple transitions declared on a single element container?
->The Engineering Reality: Yes. The rendering engine natively compiles multiple concurrent state modifications seamlessly.
+`User-Driven Pseudo-Classes:`
+>`* :hover -> `<br>Activated when client pointer tracking devices overlap container bounds.<br>
+>`:focus -> `<br>Triggered when keyboard tab selection arrays or input actions establish element targeting.<br>
+>`:active ->` <br>Intercepted during the exact execution duration of physical mouse clicks or touch point compressions.<br>
+>`Programmatic JavaScript Class Hooks:` <br>Injecting or removing operational state variables within element node records via scripts `(e.g., element.classList.add('is-active')).`<br> This instantly targets property deviations and prompts state rendering calculations.
 
->Execution Constraint: Multiple transitions must be declared inside a single structural property line separated by explicit commas. Spawning separate standalone lines will overwrite previous properties due to native style cascade layers. Grouped adjustments process simultaneously across independent operational timelines:
+### 2. Can you have multiple transitions declared on a single element container?
+
+>`The Engineering Reality`:<br> Yes. The rendering engine natively compiles multiple concurrent state modifications seamlessly.<br>
+
+>`Execution Constraint`: <br>Multiple transitions must be declared inside a single structural property line separated by explicit commas. Spawning separate standalone lines will overwrite previous properties due to native style cascade layers. Grouped adjustments process simultaneously across independent operational timelines:
 
 ```css 
 .button-node {
@@ -1693,12 +1698,12 @@ input[type="email"]::placeholder {
 }
 ```
 
-#### 3. What does animation-iteration-count: infinite do to an element?
+### 3. What does animation-iteration-count: infinite do to an element?
 
->`The Compilation Impact:` This instruction sets the structural timeline iteration register to an absolute execution cycle, disabling the default value tracking constraint (1).
->`Production Mechanics:` The browser layout engine is commanded to cycle the targeted @keyframes array continuously without ever prompting termination routines. It forces the loop to restart immediately upon reaching the 100% animation frame flag. This setting is required for components that maintain indefinite background statuses, such as skeleton screen placeholder rows, network asset loaders, or pulsing radar alert flags.
+>`The Compilation Impact:` <br>This instruction sets the structural timeline iteration register to an absolute execution cycle, disabling the default value tracking constraint (1).<br>
+>`Production Mechanics:` <br>The browser layout engine is commanded to cycle the targeted @keyframes array continuously without ever prompting termination routines. It forces the loop to restart immediately upon reaching the 100% animation frame flag. This setting is required for components that maintain indefinite background statuses, such as skeleton screen placeholder rows, network asset loaders, or pulsing radar alert flags.
 
-#### 4. Why is animating transform drastically faster than animating physical dimensions like width?
+### 4. Why is animating transform drastically faster than animating physical dimensions like width?
 
 >This is a critical performance question centered on browser layout mechanics. Animating width forces a catastrophic Layout Reflow Loop, while animating transform uses isolated GPU Compositing Layers.
 ```
@@ -1754,7 +1759,7 @@ input[type="email"]::placeholder {
 
 ---
 
-## 🎨 Presentation Layer Stylesheet
+### 🎨 Presentation Layer Stylesheet
 
 
 
@@ -1851,22 +1856,31 @@ input[type="email"]::placeholder {
 
  ## 📱 What is Responsive Web Design? Explain Media Queries, CSS Variables, and Mobile-First approach.
 
-> **Engineering Specification Overview:** Modern responsive web architecture treats viewports as fluid media canvas streams rather than fixed pixel dimensions. By leveraging declarative media queries, architectural custom property systems `(CSS Variables)`, and progressive mobile-first optimization pipelines, applications scale cleanly across varying screen sizes while minimizing layout recalculation overhead.
+**Engineering Specification Overview:**
+> Modern responsive web architecture treats viewports as fluid media canvas streams rather than fixed pixel dimensions. By leveraging declarative media queries, architectural custom property systems `(CSS Variables)`, and progressive mobile-first optimization pipelines, applications scale cleanly across varying screen sizes while minimizing layout recalculation overhead.
 
 ---
 
 ## 🧩 Enterprise Architecture Keywords
 
->* **Progressive Enhancement:** The core engineering strategy of developing the leanest core layout layer for baseline constraints first, then adding advanced visual enhancements step-by-step as horizontal viewport bounds expand.
->* **Design Token Engine:** A modular architecture pattern where global design variables (colors, spacing vectors, typography metrics) are declared centrally on the runtime scope to enable dynamic system changes.
->* **Dynamic Theme Inversion:** Injecting attribute mutations onto the document tree root node to overwrite current variable parameters instantaneously at runtime without forcing stylesheet swaps.
->* **Media-Query Invalidation:** The browser runtime operation where the compilation engine tests viewport width vectors against defined breakpoint bounds to apply or drop whole conditional style trees dynamically.
+ **Progressive Enhancement:**
+ 
+>* The core engineering strategy of developing the leanest core layout layer for baseline constraints first, then adding advanced visual enhancements step-by-step as horizontal viewport bounds expand.<br>
+
+ **Design Token Engine:**
+>*  A modular architecture pattern where global design variables (colors, spacing vectors, typography metrics) are declared centrally on the runtime scope to enable dynamic system changes.<br>
+
+ **Dynamic Theme Inversion:**
+>*  Injecting attribute mutations onto the document tree root node to overwrite current variable parameters instantaneously at runtime without forcing stylesheet swaps.<br>
+
+ **Media-Query Invalidation:**
+>*  The browser runtime operation where the compilation engine tests viewport width vectors against defined breakpoint bounds to apply or drop whole conditional style trees dynamically.
 
 ---
 
 ## 🔬 Comprehensive Feature Specifications (Detailed Theoretical Assessment)
 
-#### 1. In a Mobile-First design system, do you implement `min-width` or `max-width` inside conditional media queries?
+### 1. In a Mobile-First design system, do you implement `min-width` or `max-width` inside conditional media queries?
 
 >* **The Engineering Standard:** A strict mobile-first engineering approach uses **`min-width`** media query expressions exclusively.
 
@@ -1876,7 +1890,7 @@ input[type="email"]::placeholder {
 
 ---
 
-#### 2. What exactly does the conditional declaration `@media (prefers-color-scheme: dark)` accomplish inside the client runtime engine?
+### 2. What exactly does the conditional declaration `@media (prefers-color-scheme: dark)` accomplish inside the client runtime engine?
 
 >* **The System Intercept:** This special media query acts as a direct hardware-level interface hook between the client application and the user's host operating system settings.
 
@@ -1884,7 +1898,7 @@ input[type="email"]::placeholder {
 
 ---
 
-#### 3. Can client-side JavaScript actively read and dynamically modify CSS variables at runtime?
+### 3. Can client-side JavaScript actively read and dynamically modify CSS variables at runtime?
 
 >* **The Engineering Reality:** **Yes.** Unlike old preprocessing tools `(like Sass or Less)` whose variable systems melt away into raw CSS during static build steps, CSS Custom Properties exist natively inside the live DOM tree as interactive properties.
 
@@ -1899,14 +1913,14 @@ const activeSurfaceColor = getComputedStyle(document.documentElement)
 document.documentElement.style.setProperty('--color-surface', '#0f172a');
 ```
 
-### ⚡ Production Impact
+#### ⚡ Production Impact
 > This script-to-style binding allows for rich UI controls, such as live color palette wheels, drag-and-drop user configuration spaces, or immediate coordinate adjustments driven by mouse move events.
 
-#### 4.What is the functional operational difference between declaring var(--color) versus var(--color, #fff)?
+### 4.What is the functional operational difference between declaring var(--color) versus var(--color, #fff)?
 
->The presence of the secondary parameter represents a critical fallback mechanism designed to prevent rendering tree breakdowns:
->`var(--color) (Unprotected Query):` Instructs the engine to fetch the specified property token value. If that token variable is missing, misspelled, or undefined, the style falls back to a transparent or inherited state. This often causes text layers to blend invisibly into backgrounds, breaking UI accessibility.
->`var(--color, #fff) (Safe Protected Query):` Establishes an explicit Styling Fallback Strategy. If the primary variable token is missing from the compiled scope, the layout engine catches the exception and renders the backup option (#fff) instead. This keeps core elements visible even during network asset failures or code distribution glitches.
+>The presence of the secondary parameter represents a critical fallback mechanism designed to prevent rendering tree breakdowns:<br>
+<br>>`var(--color) (Unprotected Query):`<br> Instructs the engine to fetch the specified property token value. If that token variable is missing, misspelled, or undefined, the style falls back to a transparent or inherited state. This often causes text layers to blend invisibly into backgrounds, breaking UI accessibility.<br>
+>`var(--color, #fff) (Safe Protected Query):` <br>Establishes an explicit Styling Fallback Strategy. If the primary variable token is missing from the compiled scope, the layout engine catches the exception and renders the backup option (#fff) instead. This keeps core elements visible even during network asset failures or code distribution glitches.
 
 ## 🧩 Key Answers
 
@@ -1931,18 +1945,23 @@ Lean layout flow     Fluid grid shifts   Multi-column paths  Sidebar reveals    
 
 ---
 #### Mobile Default Scope:
+
 >Single-column layout flows, fluid text weights, and absolute layout stacking to fit narrow viewports.
-#### min-width: 768px (Tablet Tier):
+
+#### min-width: `768px (Tablet Tier):`
+
 >Introduces multi-column layout splits (like a 2-column card layout), transforming basic mobile stacks into multi-axis cards.
-#### min-width: 1024px (Laptop/Desktop Tier):
+
+#### min-width: `1024px (Laptop/Desktop Tier):`
+
 >Displays full navigation header setups, horizontal content rows, and locks main layout wrapper tracks to maximum width caps to prevent content from stretching awkwardly on ultra-wide screens.
 
 
 ## 💻 Code Task Implementation: Fluid Responsive Token System
 
->This codebase satisfies the assignment guidelines: initializing a complete design token variable engine, setting up dark theme variations, and building a mobile-first responsive layout that handles fluid grid scaling without hard-coded layout blocks.
+>This codebase satisfies the assignment guidelines: initializing a complete `design token variable engine`, setting up dark theme variations, and building a `mobile-first responsive layout` that handles fluid grid scaling without hard-coded layout blocks.
 
-### 🎨 1. Global Token Initialization (design-system.css)
+### 🎨 1. Global Token Initialization `(design-system.css)`
 
 ```css
 /* ==========================================================================
@@ -2017,7 +2036,7 @@ body {
 
 ---
 
-### 📐 2. Mobile-First Responsive Grid Framework (layout.css)
+### 📐 2. Mobile-First Responsive Grid Framework `(layout.css)`
 
 ```css
 
@@ -2084,10 +2103,10 @@ body {
 
 
 
- 💡 **Architectural Best Practice (Fallback Mechanics):** 
+ ### 💡 **Architectural Best Practice (Fallback Mechanics):** 
  >Utilizing the pattern `var(--color-primary, #7c3aed)` serves as a critical layout safety net. If a design token variable happens to be undefined, misspelled, or drops during compilation pipelines, the layout engine catches the error and instantly renders the backup parameter value (`#7c3aed`). This prevents breaking element states or rendering invisible white text layers on white background structures. Always prioritize fallback parameters for critical design tokens applied directly to functional visibility interfaces.
 
-### 🖼️ Visual Reference
+## ` 🖼️ Visual Reference`
 
 <img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/566a721a-fc69-4e51-94f7-ad24588b99e7" />
 
@@ -2116,7 +2135,7 @@ body {
 
 ![CSS](https://img.shields.io/badge/CSS3-%237c3aed?style=for-the-badge&logo=css3&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-%23db2777?style=for-the-badge&logo=html5&logoColor=white)
-![core level](https://img.shields.io/badge/JavaScript-%23f97316?style=for-the-badge&logo=javascript&logoColor=white)
+![core level](https://img.shields.io/badge/core-level-%23f97316?style=for-the-badge&logo=core-level&logoColor=white)
 ![Responsive](https://img.shields.io/badge/Responsive_Design-%2306b6d4?style=for-the-badge)
 ![Dark Mode](https://img.shields.io/badge/Dark_Mode_Ready-%237c3aed?style=for-the-badge)
 
