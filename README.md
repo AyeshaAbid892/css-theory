@@ -1292,20 +1292,20 @@ p {
 ---
 ## 🔬 Core Feature Specifications (Theoretical Assessment)
 
-1. What is the difference between justify-content and align-items?<br>
+### 1. What is the difference between justify-content and align-items?<br>
 
 >The definitive separation lies strictly within which dimensional coordinate vector is targeted by the browser's compilation stream:<br>
 
 >`justify-content`: Controls spatial allocation and positional distribution among items explicitly along the designated Main Axis `(the horizontal path by default when direction is set to row)`.<br>
 >`align-items`: Manages element positioning and structural convergence orthogonally along the active Cross Axis line `(the vertical boundary path by default when direction is set to row)`.
 >
-2. What does flex: 1 do to an item?<br>
+### 2. What does flex: 1 do to an item?<br>
 
 >`Applying flex`: 1 to a child node acts as a micro-shorthand rule that modifies the item's sizing parameters:
 >`It expands directly to:` flex-grow: 1, flex-shrink: 1, and flex-basis: 0%.
 >`Engineering Impact`: This configuration forces the target child node to scale elastically, absorbing an equal proportion of all remaining unallocated canvas space inside the master parent container while allowing safe shrinking to prevent document blowouts.<br>
 
-3. How do you center an element both horizontally and vertically with Flexbox?
+### 3. How do you center an element both horizontally and vertically with Flexbox?
 >Absolute omni-directional alignment is resolved cleanly without writing volatile relative transformation equations by mapping spatial rules directly onto the parent Flex Container node:
 
 #### 💻 Code Implementation
@@ -1318,7 +1318,7 @@ p {
 }
 ```
 
-4. What does flex-wrap: wrap do?
+### 4. What does flex-wrap: wrap do?
 >By default, flex engines prioritize single-line execution `(nowrap)`, causing items to break box rules or spill over parent borders when screen bounds shrink. Declaring flex-wrap: wrap overrides this constraint, instructing the client runtime to analyze node widths and automatically break overflowing elements onto subsequent row lines.
 
 ### 💻 Code Task Implementation: Production-Grade Navigation Header
